@@ -1,0 +1,20 @@
+.row
+  .large-3.columns User
+  .large-2.columns Begin Date
+  .large-2.columns End Date
+  .large-2.columns
+
+= form_for [current_user, current_user.grants.new] do |f|
+  .row
+    .large-3.columns= f.text_field :grantee_screen_name
+    .large-2.columns= f.text_field :start, type: "date"
+    .large-2.columns= f.text_field :end, type: "date"
+    .large-2.columns= f.submit "Submit", class: "button success"
+
+- current_user.grants.each do |grant|
+  - if grant.persisted?
+    = form_for [current_user, grant] do |f|
+      .row
+        .large-2.columns= grant.grantee.screen_name
+        .large-2.columns
+        .large-2.columns

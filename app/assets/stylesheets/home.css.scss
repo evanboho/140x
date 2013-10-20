@@ -1,0 +1,24 @@
+nav {
+  color: white !important;
+}
+
+textarea {
+  height: 80px;
+  font-size: 18px;
+}
+
+#letters-remaining {
+  color: #999;
+  font-size: 16px;
+  &.over {
+    color: #ff3333;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+div {
+  /*border: 1px solid #999;*/
+}

@@ -1,0 +1,25 @@
+.row
+  .large-12
+    %h1 Manage Access
+
+.row
+  .large-3.columns User
+  .large-3.columns Begin Date
+  .large-3.columns End Date
+  .large-2.columns
+
+= form_for [current_user, current_user.grants.new] do |f|
+  .row
+    .large-3.columns= f.text_field :grantee_screen_name
+    .large-3.columns= f.text_field :starts, type: "date"
+    .large-3.columns= f.text_field :ends, type: "date"
+    .large-2.columns= f.submit "Submit", class: "button success small"
+
+- current_user.grants.each do |grant|
+  - if grant.persisted?
+    .row
+      = form_for [current_user, grant] do |f|
+        .large-3.columns= grant.grantee.screen_name
+        .large-3.columns= grant.starts.in_time_zone(current_user.timezone)
+        .large-3.columns= grant.ends || "No End Date"
+        .large-2.columns= link_to "End Access", tweeter_grant_path(current_user, grant, grant: { end: Time.now }), method: :patch, class: "button alert small"

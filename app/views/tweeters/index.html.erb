@@ -1,0 +1,29 @@
+<h1>Listing tweeters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Handle</th>
+      <th>Oauth token</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tweeters.each do |tweeter| %>
+      <tr>
+        <td><%= tweeter.handle %></td>
+        <td><%= tweeter.oauth_token %></td>
+        <td><%= link_to 'Show', tweeter %></td>
+        <td><%= link_to 'Edit', edit_tweeter_path(tweeter) %></td>
+        <td><%= link_to 'Destroy', tweeter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tweeter', new_tweeter_path %>

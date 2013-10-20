@@ -1,0 +1,16 @@
+- if current_user
+  %br
+  %br
+  .row
+    .large-7.large-centered.columns
+      = form_for Tweet.new do |f|
+        .row
+          #letters-remaining.large-5.columns 140
+          .large-3.columns.text-right Tweet as:
+          .large-4.columns #{f.select :tweeter_id, current_user.accounts_for_select}
+        = f.text_area :body
+        .row
+          .columns
+          .large-2.columns
+            = f.submit "Tweet", class: "button success round"
+          .large-1.columns s
