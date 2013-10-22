@@ -8,11 +8,11 @@
   .large-3.columns End Date
   .large-2.columns
 
-= form_for [current_user, current_user.grants.new] do |f|
+= form_for [current_user, current_user.grants.new(starts: Time.now, ends: Time.now + 1.day)] do |f|
   .row
     .large-3.columns= f.text_field :grantee_screen_name
-    .large-3.columns= f.text_field :starts, type: "date"
-    .large-3.columns= f.text_field :ends, type: "date"
+    .large-3.columns= f.date_field :starts
+    .large-3.columns= f.date_field :ends
     .large-2.columns= f.submit "Submit", class: "button success small"
 
 - current_user.grants.each do |grant|
@@ -20,6 +20,13 @@
     .row
       = form_for [current_user, grant] do |f|
         .large-3.columns= grant.grantee.screen_name
-        .large-3.columns= grant.starts.in_time_zone(current_user.timezone)
-        .large-3.columns= grant.ends || "No End Date"
-        .large-2.columns= link_to "End Access", tweeter_grant_path(current_user, grant, grant: { end: Time.now }), method: :patch, class: "button alert small"
+        .large-3.columns= grant.starts.in_time_zone(current_user.timezone).strftime("%D at %H:%M")
+        .large-3.columns= grant.ends ? grant.ends.in_time_zone(current_user.timezone).strftime("%D at %H:%M") : "No End Date"
+        .large-2.columns
+          - if grant.active?
+            - if grant.ends && grant.ends > Time.now || !grant.ends
+              = link_to "End Access", tweeter_grant_path(current_user, grant, grant: { ends: Time.now }), method: :patch, class: "button alert small"
+            - else
+              = link_to "Remove", tweeter_grant_path(current_user, grant), method: :delete, class: "button alert small"
+          - else
+            = link_to "Cancel", tweeter_grant_path(current_user, grant), method: :delete, class: "button alert small"

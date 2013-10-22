@@ -9,17 +9,15 @@ class GrantsController < ApplicationController
     grant.associate_screen_name_with_tweeter
     prev_grants = current_user.grants.where(grantee_id: grant.grantee_id).to_a
     if prev_grants.present?
-      Rails.logger.info "a"
-      new_starts = (prev_grants.collect(&:starts) << grant.starts).compact.min
-      new_ends = (prev_grants.collect(&:ends) << grant.ends).compact.max
-      Rails.logger.info "b"
-      grant = prev_grants.slice!(0)
-      grant.starts = new_starts
-      Rails.logger.info "c"
-      grant.ends = new_ends
-      Rails.logger.info "d"
-      prev_grants.map { |a| logger.info "dd"; a.destroy }
-      Rails.logger.info "e"
+      last_end = prev_grants.collect(&:ends).compact.max
+      if grant.starts && last_end && grant.starts < last_end
+        new_starts = (prev_grants.collect(&:starts) << grant.starts).compact.min
+        new_ends = (prev_grants.collect(&:ends) << grant.ends).compact.max
+        grant = prev_grants.slice!(0)
+        grant.starts = new_starts
+        grant.ends = new_ends
+        prev_grants.map { |a| logger.info "dd"; a.destroy }
+      end
     end
     if grant.save
       redirect_to tweeter_grants_path(current_user), notice: "Access Granted!"
@@ -37,8 +35,16 @@ class GrantsController < ApplicationController
     end
   end
 
+  def destroy
+    grant = Grant.find(params[:id])
+    grant.destroy
+    redirect_to tweeter_grants_path(current_user)
+  end
+
   private
     def grant_params
+      params[:starts] ||= Time.now
+      params[:starts] = params[:starts].in_time_zone(current_user.timezone)
       params.require(:grant).permit(:grantee_screen_name, :starts, :ends)
     end
 end

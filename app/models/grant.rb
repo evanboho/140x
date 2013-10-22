@@ -12,12 +12,16 @@ class Grant < ActiveRecord::Base
 
   scope :current, -> { where("starts < ?", Time.now).where("ends > ? OR ends IS ?", Time.now, nil) }
 
-    def associate_screen_name_with_tweeter
-      return if grantee
-      grantee = Tweeter.where("screen_name ilike ?", grantee_screen_name).first
-      grantee ||= Tweeter.create(screen_name: grantee_screen_name)
-      self.grantee = grantee
-    end
+  def associate_screen_name_with_tweeter
+    return if grantee
+    grantee = Tweeter.where("screen_name ilike ?", grantee_screen_name).first
+    grantee ||= Tweeter.create(screen_name: grantee_screen_name)
+    self.grantee = grantee
+  end
+
+  def active?
+    starts < Time.now && ends ? ends > Time.now : true
+  end
 
 
   private
