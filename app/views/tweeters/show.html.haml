@@ -5,15 +5,16 @@
     .large-3.columns
       %h3 Tweet As:
       %hr
-      %ul
-        %li= link_to current_user.screen_name, dashboard_path(current_user.screen_name)
+      %ul.tweeters
+        %li{class: "#{'active' if @tweeter.screen_name == current_user.screen_name}"}= link_to current_user.screen_name, dashboard_path(current_user.screen_name)
         - current_user.privileges.current.each do |grant|
-          %li= link_to grant.granter.screen_name, dashboard_path(grant.granter.screen_name)
+          %li{class: "#{'active' if @tweeter.screen_name == grant.granter.screen_name}"}= link_to grant.granter.screen_name, dashboard_path(grant.granter.screen_name)
 
     .large-6.columns
       %h3 Tweet:
       %hr
       = form_for Tweet.new do |f|
+        = f.hidden_field :tweeter_id, value: @tweeter.id
         .row
           #letters-remaining.large-5.columns 140
           .large-4.columns= "@" + @tweeter.screen_name
