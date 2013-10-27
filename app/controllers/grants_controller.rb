@@ -4,6 +4,11 @@ class GrantsController < ApplicationController
     @grants = current_user.grants
   end
 
+  def show
+    @grantee = Tweeter.find(params[:tweeter_id])
+    @grants = Grant.where(granter_id: current_user, grantee_id: params[:tweeter_id])
+  end
+
   def create
     grant = current_user.grants.new(grant_params)
     grant.associate_screen_name_with_tweeter

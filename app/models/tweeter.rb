@@ -1,6 +1,8 @@
 class Tweeter < ActiveRecord::Base
   has_many :grants, foreign_key: :granter_id, dependent: :destroy
   has_many :privileges, foreign_key: :grantee_id, class_name: "Grant"
+  has_many :tweets, foreign_key: :sender_id
+  has_many :as_you_tweets, foreign_key: :tweeter_id, class_name: "Tweet"
   validates_presence_of :screen_name
   validates_uniqueness_of :screen_name
 
@@ -18,12 +20,13 @@ class Tweeter < ActiveRecord::Base
   end
 
   def client
-    Twitter::Client.new(
-      consumer_key:       Settings.service_field("twitter", "key"),
-      consumer_secret:    Settings.service_field("twitter", "secret"),
-      oauth_token:        oauth_token,
-      oauth_token_secret: oauth_secret
-    )
+    @client ||= Twitter::REST::Client.new do |config|
+      config.consumer_key    = Settings.service_field("twitter", "key")
+      config.consumer_secret = Settings.service_field("twitter", "secret")
+      config.access_token        = oauth_token
+      config.access_token_secret = oauth_secret
+    end
+    @client
   end
 
 end

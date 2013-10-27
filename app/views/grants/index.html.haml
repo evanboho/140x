@@ -1,6 +1,6 @@
 .row
   .large-12
-    %h1 Manage Access
+    %h3.subheader Manage Access
 
 .row
   .large-3.columns User
@@ -19,7 +19,7 @@
   - if grant.persisted?
     .row
       = form_for [current_user, grant] do |f|
-        .large-3.columns= grant.grantee.screen_name
+        .large-3.columns= link_to grant.grantee.screen_name, [grant.grantee, grant]
         .large-3.columns= grant.starts.in_time_zone(current_user.timezone).strftime("%D at %H:%M")
         .large-3.columns= grant.ends ? grant.ends.in_time_zone(current_user.timezone).strftime("%D at %H:%M") : "No End Date"
         .large-2.columns

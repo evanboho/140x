@@ -1,5 +1,4 @@
-class Tweet
-  include ActiveModel::Model
-  attr_accessor :body, :tweeter_id
+class Tweet < ActiveRecord::Base
+  belongs_to :tweeter
 
 end

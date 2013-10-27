@@ -1,16 +1,33 @@
-- if current_user
-  %br
-  %br
+#welcome
+  %header
+    .panel
+      .row
+        .large-12.columns
+          %h1.subheader
+            140x140
+      .row
+        .large-6.large-offset-4.columns
+          %h2.subheader
+            %small.right Share your Twitter account
+
   .row
-    .large-7.large-centered.columns
-      = form_for Tweet.new do |f|
-        .row
-          #letters-remaining.large-5.columns 140
-          .large-3.columns.text-right Tweet as:
-          .large-4.columns #{f.select :tweeter_id, current_user.accounts_for_select}
-        = f.text_area :body
-        .row
-          .columns
-          .large-2.columns
-            = f.submit "Tweet", class: "button success round"
-          .large-1.columns s
+    .large-12.columns
+      .center
+        %a.learn-more.button.round Learn more
+
+#learn-more.hidden
+  .row
+    .large-4.columns.large-centered
+      .panel
+        %ol{style: "padding: 20px"}
+          %li Log in through Twitter
+          %li Give access to someone by screen name
+          %li They log in through Twitter; they Tweet as you.
+
+  .row
+    .large-4.columns.large-centered
+      .left
+        %a.back.button.round Back
+      .right
+        = link_to "Sign In", sign_in_path, class: "button success round"
+

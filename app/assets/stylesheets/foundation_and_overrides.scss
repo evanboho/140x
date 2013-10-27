@@ -67,14 +67,14 @@ $default-float: left;
 
 // Colors
 
-// $primary-color: #2ba6cb;
-// $secondary-color: #e9e9e9;
-// $alert-color: #c60f13;
-// $success-color: #5da423;
+$primary-color: #4671d5; // lighten(#2ba6cb, 10%);
+$secondary-color: #e9e9e9;
+$alert-color: #a64b00; // #c60f13;
+$success-color: lighten(#5da423, 10%);
 
 // Make sure border radius matches unless we want it different.
 
-// $global-radius: 3px;
+$global-radius: 5px;
 // $global-rounded: 1000px;
 
 // Inset shadow shiny edges and depressions.
@@ -113,14 +113,15 @@ $default-float: left;
 
 // Media Queries
 
-// $small-screen: 768px;
-// $medium-screen: 1280px;
-// $large-screen: 1440px;
+$small-screen: 768px;
+$medium-screen: 1280px;
+$large-screen: 1440px;
 
 // $screen: "only screen";
-// $small: "only screen and (min-width: #{$small-screen})";
-// $medium: "only screen and (min-width: #{$medium-screen})";
-// $large: "only screen and (min-width: #{$large-screen})";
+$sm: "only screen and (max-width: #{$small-screen})";
+$small: "only screen and (min-width: #{$small-screen})";
+//$medium: "only screen and (min-width: #{$medium-screen})";
+//$large: "only screen and (min-width: #{$large-screen})";
 // $landscape: "only screen and (orientation: landscape)";
 // $portrait: "only screen and (orientation: portrait)";
 
@@ -137,7 +138,7 @@ $default-float: left;
 // Grid Variables
 //
 
-// $row-width: emCalc(1000);
+$row-width: emCalc(1400);
 // $column-gutter: emCalc(30);
 // $total-columns: 12;
 
@@ -171,9 +172,9 @@ $default-float: left;
 
 // Control header font sizes
 
-// $h1-font-size: emCalc(44);
-// $h2-font-size: emCalc(37);
-// $h3-font-size: emCalc(27);
+$h1-font-size: emCalc(100);
+$h2-font-size: emCalc(80);
+$h3-font-size: emCalc(40);
 // $h4-font-size: emCalc(23);
 // $h5-font-size: emCalc(18);
 // $h6-font-size: 1em;
@@ -878,14 +879,15 @@ $default-float: left;
 
 // We use these to control the background and border styles
 
-// $panel-bg: darken(#fff, 5%);
+// $panel-bg: darken(#fefefd, 15%);
+$panel-bg: #ffe773;
 // $panel-border-style: solid;
-// $panel-border-size: 1px;
+$panel-border-size: 1px;
 
 // We use this % to control how much we darken things on hover
 
-// $panel-function-factor: 10%;
-// $panel-border-color: darken($panel-bg, $panel-function-factor);
+$panel-function-factor: 20%;
+$panel-border-color: darken($panel-bg, $panel-function-factor);
 
 // We use these to set default inner padding and bottom margin
 
@@ -894,8 +896,8 @@ $default-float: left;
 
 // We use these to set default font colors
 
-// $panel-font-color: #333;
-// $panel-font-color-alt: #fff;
+$panel-font-color: #444;
+$panel-font-color-alt: #eee;
 
 // $panel-header-adjust: true;
 

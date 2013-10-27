@@ -7,7 +7,7 @@
     = stylesheet_link_tag    "application"
     = javascript_include_tag "vendor/custom.modernizr"
     = csrf_meta_tags
-  %body
+  %body{class: "#{params[:controller]}-#{params[:action]}"}
     = render 'navbar'
     - if flash[:notice]
       .alert-box
@@ -16,3 +16,4 @@
             = flash[:notice]
     = yield
     = javascript_include_tag "application"
+

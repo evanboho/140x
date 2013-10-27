@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130824165854) do
+ActiveRecord::Schema.define(version: 20131026204326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,5 +38,17 @@ ActiveRecord::Schema.define(version: 20130824165854) do
   end
 
   add_index "tweeters", ["screen_name"], name: "index_tweeters_on_screen_name", using: :btree
+
+  create_table "tweets", force: true do |t|
+    t.string   "body"
+    t.integer  "tweeter_id"
+    t.integer  "sender_id"
+    t.string   "tweet_uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweets", ["sender_id"], name: "index_tweets_on_sender_id", using: :btree
+  add_index "tweets", ["tweeter_id"], name: "index_tweets_on_tweeter_id", using: :btree
 
 end

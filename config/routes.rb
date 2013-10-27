@@ -11,6 +11,7 @@ Crowdtweet::Application.routes.draw do
     resources :grants
   end
   resources :tweets
+  get '/tweets/new/:screen_name', to: 'tweets#new'
 
   get '/:screen_name', to: 'tweeters#show', as: "dashboard"
 

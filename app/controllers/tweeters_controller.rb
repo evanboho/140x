@@ -1,28 +1,21 @@
 class TweetersController < ApplicationController
   before_action :set_tweeter, only: [:show, :edit, :update, :destroy]
 
-  # GET /tweeters
-  # GET /tweeters.json
   def index
     @tweeters = Tweeter.all
   end
 
-  # GET /tweeters/1
-  # GET /tweeters/1.json
   def show
+    # redirect_to tweeter_grants_path(@tweeter) unless @tweeter.grants.present?
   end
 
-  # GET /tweeters/new
   def new
     @tweeter = Tweeter.new
   end
 
-  # GET /tweeters/1/edit
   def edit
   end
 
-  # POST /tweeters
-  # POST /tweeters.json
   def create
     @tweeter = Tweeter.new(tweeter_params)
 

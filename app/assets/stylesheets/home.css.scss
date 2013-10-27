@@ -1,5 +1,21 @@
-nav {
-  color: white !important;
+@import 'foundation_and_overrides';
+
+.home-index header {
+  padding: 7em 0;
+  .panel {
+    padding: 5em 0;
+  }
+}
+@media #{$sm} {
+ .home-index header {
+    padding: 2em 0;
+  }
+  .panel h1, h1 {
+    margin-bottom: 0em;
+  }
+  .panel h2.subheader {
+    line-height: 1em;
+  }
 }
 
 textarea {
@@ -15,26 +31,35 @@ textarea {
   }
 }
 
-.center {
-  text-align: center;
-}
-
-div {
-  /*border: 1px solid #999;*/
-}
-
 ul.tweeters {
   li, li a {
+    text-align: center;
     display: block;
     border-radius: 5px;
     margin: 0;
-  }
-  li a { padding: 5px 5px; }
-  li.active a {
-    width: 100%;
-    background-color: #ddd;
     &:hover {
-      color: black;
+      color: #888;
     }
   }
+  li.label a {
+    color: white;
+    &:hover {
+      color: #ddd;
+    }
+  }
+  li a { padding: 5px 5px; }
+}
+
+.center {
+  text-align: center;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+.hidden {
+  display: none;
 }
