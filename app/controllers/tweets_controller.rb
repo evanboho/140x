@@ -9,8 +9,8 @@ class TweetsController < ApplicationController
     @tweeter = Tweeter.find(tweet_params[:tweeter_id])
     client = @tweeter.client
     begin
-      client.update(tweet_params[:body])
-      Tweet.create(body: tweet_params[:body], tweeter_id: @tweeter.id, sender_id: current_user.id)
+      tweet = client.update(tweet_params[:body])
+      Tweet.create(body: tweet_params[:body], tweeter_id: @tweeter.id, sender_id: current_user.id, tweet_uid: tweet.id)
       redirect_to root_path, notice: "Your tweet was sent as @#{@tweeter.screen_name}!"
     rescue => e
       logger.info e
