@@ -37,7 +37,7 @@ end
 
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'twitter', git: "git@github.com:sferik/twitter.git"
+gem 'twitter', '~> 5.0.0.rc1' # git: "git@github.com:sferik/twitter.git"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
