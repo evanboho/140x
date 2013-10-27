@@ -6,9 +6,9 @@
       %h3 Tweet As:
       %hr
       %ul.tweeters
-        %li{class: "#{'label' if @tweeter.screen_name == current_user.screen_name}"}= link_to current_user.screen_name, dashboard_path(current_user.screen_name)
+        %li{class: "#{'label' if @tweeter.screen_name == current_user.screen_name}"}= link_to current_user.screen_name, send_tweet_path(screen_name: current_user.screen_name)
         - current_user.privileges.current.each do |grant|
-          %li{class: "#{'label' if @tweeter.screen_name == grant.granter.screen_name}"}= link_to grant.granter.screen_name, dashboard_path(grant.granter.screen_name)
+          %li{class: "#{'label' if @tweeter.screen_name == grant.granter.screen_name}"}= link_to grant.granter.screen_name, send_tweet_path(screen_name: grant.granter.screen_name)
 
     .large-6.columns
       %h3 Tweet:
